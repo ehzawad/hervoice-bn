@@ -1,0 +1,52 @@
+{
+ "turns": 3,
+ "nfe": 16,
+ "detail": [
+  {
+   "label": "turn1",
+   "asr_ms": 68.0,
+   "asr_svc_ms": 65.5,
+   "brain_first_token_ms": 30.3,
+   "tts_first_chunk_ms": 1613.4,
+   "first_audio_ms": 1746.9,
+   "turn_total_ms": 3524.2,
+   "audio_out_s": 6.49,
+   "asr_text": "বাংলাদেশের রাজধানীর নাম কি",
+   "reply": "বাংলাদেশের রাজধানীর নাম ঢাকা। এটি দেশের প্রধান প্রশাসনিক ও অর্থনৈতিক কেন্দ্র।",
+   "sentences": 2
+  },
+  {
+   "label": "turn2",
+   "asr_ms": 65.9,
+   "asr_svc_ms": 63.4,
+   "brain_first_token_ms": 33.8,
+   "tts_first_chunk_ms": 1618.6,
+   "first_audio_ms": 1752.5,
+   "turn_total_ms": 3533.6,
+   "audio_out_s": 6.49,
+   "asr_text": "বাংলাদেশের রাজধানীর নাম কি",
+   "reply": "বাংলাদেশের রাজধানীর নাম ঢাকা। এটি দেশের প্রধান প্রশাসনিক ও অর্থনৈতিক কেন্দ্র।",
+   "sentences": 2
+  },
+  {
+   "label": "turn3",
+   "asr_ms": 68.6,
+   "asr_svc_ms": 65.9,
+   "brain_first_token_ms": 35.8,
+   "tts_first_chunk_ms": 1616.8,
+   "first_audio_ms": 1755.6,
+   "turn_total_ms": 3535.6,
+   "audio_out_s": 6.49,
+   "asr_text": "বাংলাদেশের রাজধানীর নাম কি",
+   "reply": "বাংলাদেশের রাজধানীর নাম ঢাকা। এটি দেশের প্রধান প্রশাসনিক ও অর্থনৈতিক কেন্দ্র।",
+   "sentences": 2
+  }
+ ],
+ "warm_median": {
+  "asr_ms": 68.0,
+  "brain_first_token_ms": 33.8,
+  "tts_first_chunk_ms": 1616.8,
+  "first_audio_ms": 1752.5,
+  "turn_total_ms": 3533.6
+ }
+}

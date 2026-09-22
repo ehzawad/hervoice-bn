@@ -1,0 +1,284 @@
+{
+ "events": [
+  {
+   "type": "ready",
+   "config": {
+    "asr_url": "http://127.0.0.1:8001",
+    "tts_url": "http://127.0.0.1:8002",
+    "llm_url": "http://127.0.0.1:8090",
+    "llm_model": "gemma4-e4b",
+    "asr_model": "ehzawad/stt_bn_fastconformer_ctc",
+    "tts_repo": "ehzawad/indicf5-bangla-tts",
+    "device": "cuda",
+    "tts_nfe": 16,
+    "sr_in": 16000,
+    "sr_out": 24000,
+    "max_sessions": 1,
+    "auth": true,
+    "min_silence_ms": 700,
+    "mem_turns": 12
+   },
+   "at_ms": 178.7
+  },
+  {
+   "type": "state",
+   "t": 1790052210.9230864,
+   "state": "listening",
+   "at_ms": 178.9
+  },
+  {
+   "type": "turn_start",
+   "t": 1790052211.4493396,
+   "turn": 1,
+   "epoch": 1,
+   "barge_in": false,
+   "at_ms": 704.9
+  },
+  {
+   "type": "state",
+   "t": 1790052211.4493675,
+   "state": "user_speaking",
+   "at_ms": 705.1
+  },
+  {
+   "type": "state",
+   "t": 1790052213.988521,
+   "state": "thinking",
+   "at_ms": 3244.2
+  },
+  {
+   "type": "asr",
+   "t": 1790052214.063342,
+   "turn": 1,
+   "text": "বাংলাদেশের রাজধানীর নাম কি",
+   "ms": 71.0,
+   "turn_audio_s": 2.756,
+   "dropped_frames": 0,
+   "degraded": false,
+   "at_ms": 3319.3
+  },
+  {
+   "type": "text",
+   "t": 1790052214.243372,
+   "turn": 1,
+   "delta": "বাংলাদেশের",
+   "at_ms": 3498.8
+  },
+  {
+   "type": "text",
+   "t": 1790052214.2463994,
+   "turn": 1,
+   "delta": " রাজধানীর",
+   "at_ms": 3501.8
+  },
+  {
+   "type": "text",
+   "t": 1790052214.2544346,
+   "turn": 1,
+   "delta": " নাম",
+   "at_ms": 3509.7
+  },
+  {
+   "type": "text",
+   "t": 1790052214.2620523,
+   "turn": 1,
+   "delta": " ঢাকা",
+   "at_ms": 3517.4
+  },
+  {
+   "type": "text",
+   "t": 1790052214.2700396,
+   "turn": 1,
+   "delta": "।",
+   "at_ms": 3525.9
+  },
+  {
+   "type": "sentence",
+   "t": 1790052214.2700837,
+   "turn": 1,
+   "idx": 0,
+   "text": "বাংলাদেশের রাজধানীর নাম ঢাকা।",
+   "at_ms": 3526.0
+  },
+  {
+   "type": "metrics",
+   "t": 1790052215.86961,
+   "turn": 1,
+   "first_audio_ms": 1880.3,
+   "first_audio_from_speech_end_ms": 2581.5,
+   "at_ms": 5156.6
+  },
+  {
+   "type": "state",
+   "t": 1790052215.8696215,
+   "state": "speaking",
+   "at_ms": 5156.7
+  },
+  {
+   "type": "text",
+   "t": 1790052215.8698566,
+   "turn": 1,
+   "delta": " এটি",
+   "at_ms": 5163.5
+  },
+  {
+   "type": "text",
+   "t": 1790052215.869883,
+   "turn": 1,
+   "delta": " দেশের",
+   "at_ms": 5163.6
+  },
+  {
+   "type": "text",
+   "t": 1790052215.8699038,
+   "turn": 1,
+   "delta": " প্রধান",
+   "at_ms": 5163.7
+  },
+  {
+   "type": "text",
+   "t": 1790052215.8699214,
+   "turn": 1,
+   "delta": " প্রশাসনিক",
+   "at_ms": 5163.7
+  },
+  {
+   "type": "text",
+   "t": 1790052215.8699381,
+   "turn": 1,
+   "delta": " ও",
+   "at_ms": 5163.8
+  },
+  {
+   "type": "text",
+   "t": 1790052215.8699546,
+   "turn": 1,
+   "delta": " অর্থনৈতিক",
+   "at_ms": 5163.8
+  },
+  {
+   "type": "text",
+   "t": 1790052215.8699708,
+   "turn": 1,
+   "delta": " কেন্দ্র",
+   "at_ms": 5163.9
+  },
+  {
+   "type": "text",
+   "t": 1790052215.869987,
+   "turn": 1,
+   "delta": "।",
+   "at_ms": 5163.9
+  },
+  {
+   "type": "sentence",
+   "t": 1790052215.870003,
+   "turn": 1,
+   "idx": 1,
+   "text": "এটি দেশের প্রধান প্রশাসনিক ও অর্থনৈতিক কেন্দ্র।",
+   "at_ms": 5164.0
+  },
+  {
+   "type": "cancel",
+   "t": 1790052216.9952009,
+   "epoch": 1,
+   "reason": "barge_in",
+   "at_ms": 6250.5
+  },
+  {
+   "type": "memory",
+   "t": 1790052217.625957,
+   "turn": 1,
+   "epoch": 1,
+   "reason": "barge_in",
+   "cancelled": true,
+   "confirmed_sentences": 1,
+   "total_sentences": 2,
+   "marker": false,
+   "turns_kept": 2,
+   "at_ms": 6881.7
+  },
+  {
+   "type": "turn_start",
+   "t": 1790052217.6263628,
+   "turn": 2,
+   "epoch": 3,
+   "barge_in": true,
+   "at_ms": 6882.0
+  },
+  {
+   "type": "state",
+   "t": 1790052217.6263754,
+   "state": "user_speaking",
+   "at_ms": 6882.1
+  },
+  {
+   "type": "metrics",
+   "t": 1790052217.6263983,
+   "turn": 2,
+   "cancel_to_new_turn_ms": 631.2,
+   "at_ms": 6882.2
+  },
+  {
+   "type": "state",
+   "t": 1790052219.5772564,
+   "state": "thinking",
+   "at_ms": 8833.5
+  },
+  {
+   "type": "asr",
+   "t": 1790052219.6380637,
+   "turn": 2,
+   "text": "বাংলাদেশের রাজধানীর নাম কি",
+   "ms": 57.3,
+   "turn_audio_s": 2.796,
+   "dropped_frames": 0,
+   "degraded": false,
+   "at_ms": 8893.9
+  },
+  {
+   "type": "text",
+   "t": 1790052219.6778495,
+   "turn": 2,
+   "delta": "বাংলাদেশের",
+   "at_ms": 8933.3
+  },
+  {
+   "type": "text",
+   "t": 1790052219.6840003,
+   "turn": 2,
+   "delta": " রাজধানীর",
+   "at_ms": 8939.4
+  },
+  {
+   "type": "text",
+   "t": 1790052219.6927025,
+   "turn": 2,
+   "delta": " নাম",
+   "at_ms": 8948.1
+  },
+  {
+   "type": "text",
+   "t": 1790052219.7005606,
+   "turn": 2,
+   "delta": " ঢাকা",
+   "at_ms": 8955.8
+  },
+  {
+   "type": "text",
+   "t": 1790052219.7082965,
+   "turn": 2,
+   "delta": "।",
+   "at_ms": 8964.1
+  },
+  {
+   "type": "sentence",
+   "t": 1790052219.7083454,
+   "turn": 2,
+   "idx": 0,
+   "text": "বাংলাদেশের রাজধানীর নাম ঢাকা।",
+   "at_ms": 8964.2
+  }
+ ],
+ "stale": []
+}
