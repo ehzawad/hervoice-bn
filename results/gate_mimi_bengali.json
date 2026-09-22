@@ -1,0 +1,56 @@
+{
+ "gpu": "NVIDIA RTX A6000",
+ "n": 20,
+ "orig_cer": 0.06016500539761942,
+ "frame_hz": 12.5,
+ "rows": [
+  {
+   "num_quantizers": 1,
+   "kbps": 0.14,
+   "cer_mean": 0.6799,
+   "d_cer_mean": 0.6198,
+   "secs_mean": -0.0394,
+   "secs_min": -0.1905
+  },
+  {
+   "num_quantizers": 2,
+   "kbps": 0.28,
+   "cer_mean": 0.2824,
+   "d_cer_mean": 0.2222,
+   "secs_mean": 0.2033,
+   "secs_min": -0.0414
+  },
+  {
+   "num_quantizers": 4,
+   "kbps": 0.55,
+   "cer_mean": 0.1857,
+   "d_cer_mean": 0.1255,
+   "secs_mean": 0.5149,
+   "secs_min": 0.2372
+  },
+  {
+   "num_quantizers": 8,
+   "kbps": 1.1,
+   "cer_mean": 0.0986,
+   "d_cer_mean": 0.0384,
+   "secs_mean": 0.7363,
+   "secs_min": 0.5594
+  },
+  {
+   "num_quantizers": 16,
+   "kbps": 2.2,
+   "cer_mean": 0.084,
+   "d_cer_mean": 0.0238,
+   "secs_mean": 0.8769,
+   "secs_min": 0.8041
+  },
+  {
+   "num_quantizers": 32,
+   "kbps": 4.4,
+   "cer_mean": 0.0694,
+   "d_cer_mean": 0.0092,
+   "secs_mean": 0.9284,
+   "secs_min": 0.8476
+  }
+ ]
+}
