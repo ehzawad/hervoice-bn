@@ -84,8 +84,31 @@ to first audio" is real but starts *after* the endpoint, so it excludes the sile
 ends at server emission, not at the listener's ear. TTS is ~92 % of the service-path figure
 (IndicF5 is flow matching: the whole chunk must finish before any sample exists).
 
-Levers, ranked by evidence: NFE below 16 (32→16 measured 3074→1553 ms; quality at 16
-unmeasured; 8–12 untested); a deliberately short first sentence; int16 on the wire (halves
+**NFE sweep, measured on both cards** (`bench_nfe.py`, 8 assistant sentences, same seeds,
+re-ASR CER through the bot's own Bengali ASR, ECAPA drift against the NFE 32 rendering):
+
+| NFE | A5000 ms | A6000 ms | CER A5000 | CER A6000 | timbre vs 32 |
+|---|---|---|---|---|---|
+| 8 | 559 | 469 | **0.0429** | 0.0077 | 0.955 |
+| 12 | 840 | 682 | 0.0045 | 0.0192 | 0.974 |
+| 16 | 1133 | 911 | 0.0045 | 0.0128 | 0.984 |
+| 24 | 1723 | 1372 | 0.0045 | 0.0128 | 0.985 |
+| 32 | 2323 | 1824 | 0.0045 | 0.0128 | 1.000 |
+
+**NFE 8 is not safe.** Identical sentences and seeds gave CER 0.0077 on one card and 0.0429
+on the other — ten times its own reference. Below roughly 12 steps the ODE solve becomes
+sensitive to floating-point differences, so a single good run proves nothing. NFE 12 is at the
+reference CER on both cards and saves ~290 ms per sentence against 16; its timbre drift
+(0.974 vs 0.984) is small but real and was put to a blind listening test rather than decided
+by metric. Duration is identical at every setting because it comes from the byte-ratio
+heuristic, not the solver — a duration ratio of 1.000 proves nothing about pacing.
+
+**The A6000 is ~1.25× faster than the A5000 at every step count**, despite identical memory
+bandwidth (768 GB/s). This synthesis is compute-bound, not bandwidth-bound — which is worth
+remembering before assuming a cloud L4 (300 GB/s but comparable fp32 throughput) would be
+proportionally slower.
+
+Levers, ranked by evidence: NFE below 16 (above); a deliberately short first sentence; int16 on the wire (halves
 bandwidth, not latency); smaller first chunk. Not levers: framework, WebRTC, another GPU type
 — none has measured evidence here.
 
