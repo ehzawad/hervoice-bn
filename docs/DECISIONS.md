@@ -78,11 +78,12 @@ heard it.
 
 ## Latency
 
-**Honest number: about 2.5–3.1 s after the user stops speaking**, projected from component
-medians; to be replaced by the measured `first_audio_from_speech_end_ms`. The earlier "1752 ms
-to first audio" is real but starts *after* the endpoint, so it excludes the silence wait, and
-ends at server emission, not at the listener's ear. TTS is ~92 % of the service-path figure
-(IndicF5 is flow matching: the whole chunk must finish before any sample exists).
+**Measured: 3.07 s median, 3.49 s p90, from when the user stops speaking** (30 real speakers;
+`first_audio_from_speech_end_ms`). From the endpoint instead it is 2.37 s — that is the figure
+most systems quote and the one quoted here earlier, and it understates the experience by the
+whole silence threshold. The timer also stops at server emission, not at the listener's ear.
+TTS is ~92 % of the service-path figure (IndicF5 is flow matching: the whole chunk must finish
+before any sample exists).
 
 **NFE sweep, measured on both cards** (`bench_nfe.py`, 8 assistant sentences, same seeds,
 re-ASR CER through the bot's own Bengali ASR, ECAPA drift against the NFE 32 rendering):
@@ -115,12 +116,22 @@ bandwidth, not latency); smaller first chunk. Not levers: framework, WebRTC, ano
 ## Evaluation without a human
 
 The box has no microphone. User turns for the scripted dialogues are synthesised with the
-*released* IndicF5 and its Marathi prompt — a different model and voice from the assistant —
-and are stated to be clean synthetic audio. Robustness uses 30 real spontaneous West Bengal
+*released* IndicF5 conditioned on a real Bengali male speaker — a different voice from the
+assistant's — and are clean synthetic audio. Robustness uses 30 real spontaneous West Bengal
 speakers (IndicVoices-R), SNR-stratified; the dialect differs from the Bangladeshi target.
 The LLM judge is Gemma grading itself and is reported as a weak signal beside keyword hits
 and referent resolution. Known: one Russian word and one Korean fragment appeared in 30 real-
 speech replies before the code-switch checker was widened.
+
+**The harness was once the bottleneck, and it took an isolation test to see it.** The user
+voice was originally IndicF5 on ai4bharat's *Marathi* prompt. Audio-mode memory scored 5–6/10
+against text mode's 10/11 and the gap survived the endpoint fix. Sending the rendered turns
+straight to the ASR service, bypassing the gateway, settled it: synthetic CER 0.282 direct
+versus 0.261 through the gateway versus 0.112 for real humans. The gateway added nothing; the
+*test voice* was harder to recognise than real Bengali speakers, because cross-lingual
+prompting gives IndicF5 a non-Bengali accent ("ফি কত?" came back as "হ"). Re-conditioned on a
+real Bengali speaker: CER 0.282 → 0.135, and memory 5–6/10 → 10/11. Isolate the harness before
+blaming the system, and condition evaluation TTS on the target language.
 
 ## Deployment
 
