@@ -10,7 +10,7 @@
 #   git -C third_party/F5-TTS checkout 9c614e9657089213efc6a7421b30630be138a3f5
 #   uv pip install --python .venv-bnweb/bin/python -e third_party/F5-TTS
 
-torch==2.8.0
+torch==2.13.0
 torchaudio==2.8.0
 
 # ASR: ehzawad/stt_bn_fastconformer_ctc (NeMo FastConformer-CTC, 115.6M)
