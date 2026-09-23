@@ -16,19 +16,19 @@ On one RTX A5000, warm medians. The scripts that produced every number are in `h
 
 | | |
 |---|---|
-| **Time to first audio, from when you stop speaking** | **3.07 s** median, 3.49 s p90 (30 real speakers) |
+| **Time to first audio, from when you stop speaking** | **2.58 s** median, 2.86 s p90 (30 real speakers) |
 | …of which the end-of-turn silence wait | 700 ms |
-| …of which TTS | ~1.6 s — IndicF5 is flow matching, so a whole sentence must finish before any sample exists |
+| …of which TTS | ~0.8–1.1 s at NFE 12 — IndicF5 is flow matching, so a whole sentence must finish before any sample exists |
 | ASR 68 ms · brain first token 34 ms | the cheap parts |
-| Barge-in, cancel → new turn | 631 ms, zero stale audio frames |
-| ASR on 30 real spontaneous Bengali speakers | CER median 0.074, mean 0.115, p90 0.235 |
+| Barge-in, cancel → new turn | 288 ms, zero stale audio frames |
+| ASR on 30 real spontaneous Bengali speakers | CER median 0.070, mean 0.112, p90 0.222 |
 | Valid Bengali replies on those 30 | 30/30, no utterance cut short |
 | Conversation memory, follow-ups needing earlier turns | 10/11 through audio; 10/11 in text |
 | Resident VRAM, all four services | 19.1 GiB |
 
 The first-audio figure is measured from the **end of the user's speech**, which includes the
 silence the bot waits through before it even knows you stopped. Measured from the endpoint
-instead it is 2.37 s, and that is the number most systems quote; it is not what a person
+instead it is ~1.9 s, and that is the number most systems quote; it is not what a person
 experiences, so this repo quotes the larger one.
 
 `results/` holds the JSON behind every figure above.
@@ -41,8 +41,9 @@ experiences, so this repo quotes the larger one.
   (a spec MUST for non-WebRTC playback on Chrome 141+) with a boolean fallback, but an accepted
   constraint is not evidence that a real speaker/microphone pair cancels the bot's own voice.
   If it fails, the bot barges in on itself.
-- **NFE 16 has no quality comparison.** It halves TTS latency against 32; what it costs in
-  pronunciation and naturalness has not been measured.
+- **TTS runs at NFE 12**, chosen by a two-GPU sweep (reference CER kept on both cards) and a
+  blind listening test in which 8/12/16/32 were indistinguishable. NFE 8 is rejected as
+  unstable across GPUs. Naturalness was judged by one listener, not a panel.
 - **Real speakers are West Bengal**, not Bangladeshi, and are clean recordings, not phone or
   laptop microphones.
 
