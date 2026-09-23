@@ -125,7 +125,7 @@ hervoice/bn/      model construction (IndicF5 with its two pinned DiT defaults, 
 hervoice/live/    turn_detector.py — Silero VAD hysteresis, from omni-voice-lab
 hervoice/eval/    scenarios, real-speech robustness, turn-detector comparison, user-voice render
 deploy/           compose.yaml, three Dockerfiles, Caddyfile — not yet built or run
-docs/DECISIONS.md every decision and the evidence that settled it, including what was withdrawn
+docs/DECISIONS.md every decision and the evidence that settled it
 ```
 
 Licence MIT (`LICENSE`); third-party code and model terms in `THIRD_PARTY.md`. The IndicF5

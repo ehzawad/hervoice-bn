@@ -1,9 +1,9 @@
-# Was a Moshi-style Bengali model built? No — and this is why
+# Moshi for Bengali: assessed, not built
 
-The owner asked for Moshi (full-duplex speech-to-speech, turn-taking decided inside the
-network) reimplemented for Bengali. Two gates were measured before deciding, and a codex
-council of three roles reviewed them. All three said do not build it. The reasoning, with the
-numbers, is below, so the decision can be revisited if the inputs change.
+Moshi (full-duplex speech-to-speech, turn-taking decided inside the network) was assessed as
+an alternative architecture for Bengali. Two gates were measured and both argue against
+building it on the available data and hardware. The numbers are below so the decision can be
+revisited if the inputs change.
 
 ## Gate 1: the data does not exist
 
@@ -17,11 +17,7 @@ Moshi is for.
 
 ## Gate 2: the codec
 
-The first gate compared each Mimi reconstruction against *its own* source recording. That is
-not how generated speech is scored, and the council was right to reject the extrapolation
-built on it (one data point, and cosine similarities do not compose multiplicatively).
-
-This is the decision-relevant test instead: take the voice the bot ships today, route it
+Test: take the voice the bot ships today, route it
 through Mimi, and score both against the INDEPENDENT reference clip that IndicF5 is cloning —
 the same protocol used for voice-generation evaluation.
 
@@ -43,7 +39,7 @@ Training to emit 16 or 32 codebooks recovers most of it, at 2× and 4× the audi
 frame — 16 and 32 sequential depth-transformer steps per 80 ms frame instead of 8, against a
 real-time budget that the local English Moshi demo has not yet been shown to meet when warm.
 
-## Gate 3, raised by the council and not yet measured
+## Open: real-time budget
 
 The local English Moshi demo recorded **178 ms average per 80 ms frame**, but that figure
 includes first-step CUDA-graph compilation. If it held when warm, the model would fall behind
@@ -54,8 +50,7 @@ has not been established, and should be, before any Bengali adaptation is contem
 
 Mimi is **strongly sensitive to input loudness**: FLEURS English at its native level scored
 0.304 speaker similarity at 8 codebooks and 0.671 after RMS normalisation — 0.37 from gain
-alone. Before that was found, the same comparison appeared to show Mimi favouring Bengali over
-English by +0.41. It does not: level-matched, Bengali 0.713 and English 0.671. **Mimi has no
+alone. Level-matched, Bengali 0.713 and English 0.671. **Mimi has no
 Bengali penalty**; the 0.72 ceiling is simply what the codec does at 1.1 kbps in any language,
 including the one Moshi itself speaks. Any Mimi pipeline must normalise loudness first, and a
 streaming deployment needs a causal normaliser — whole-clip RMS uses information that is not

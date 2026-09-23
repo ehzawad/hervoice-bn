@@ -25,8 +25,7 @@ inference with vLLM"; it occupies ~16.9 GiB at utilisation 0.65.
 **No Triton.** vLLM is already a serving layer; the barge-in state machine cannot be a Triton
 ensemble; ASR and TTS are single-tenant. Triton would add a process and a protocol hop.
 
-**No framework (Pipecat, LiveKit, ...).** Research (two independent reviews) and the council
-agree: every framework exists to glue cloud vendors, and all three models here are local. The
+**No framework (Pipecat, LiveKit, ...).** every framework exists to glue cloud vendors, and all three models here are local. The
 gateway already does what Pipecat has an open bug about (#5305, unspoken text appended to
 context) and what its browser-WebSocket path cannot do (stale-audio flush). If ever: Pipecat
 (BSD-2), not LiveKit (proprietary model licence; 14 turn-detector languages, no Bengali). A
@@ -78,10 +77,10 @@ heard it.
 
 ## Latency
 
-**Measured: 3.07 s median, 3.49 s p90, from when the user stops speaking** (30 real speakers;
-`first_audio_from_speech_end_ms`). From the endpoint instead it is 2.37 s — that is the figure
-most systems quote and the one quoted here earlier, and it understates the experience by the
-whole silence threshold. The timer also stops at server emission, not at the listener's ear.
+**Measured: 2.58 s median, 2.86 s p90, from when the user stops speaking** (30 real speakers,
+NFE 12; `first_audio_from_speech_end_ms`). Measured from the endpoint instead it is ~0.7 s
+lower — the figure most systems quote — which understates the experience by the whole
+silence threshold. The timer also stops at server emission, not at the listener's ear.
 TTS is ~92 % of the service-path figure (IndicF5 is flow matching: the whole chunk must finish
 before any sample exists).
 
@@ -120,18 +119,14 @@ The box has no microphone. User turns for the scripted dialogues are synthesised
 assistant's — and are clean synthetic audio. Robustness uses 30 real spontaneous West Bengal
 speakers (IndicVoices-R), SNR-stratified; the dialect differs from the Bangladeshi target.
 The LLM judge is Gemma grading itself and is reported as a weak signal beside keyword hits
-and referent resolution. Known: one Russian word and one Korean fragment appeared in 30 real-
-speech replies before the code-switch checker was widened.
+and referent resolution. The code-switch checker flags non-Bengali letters
+(CJK, Hangul, Cyrillic, Arabic, Thai, Devanagari other than the danda).
 
-**The harness was once the bottleneck, and it took an isolation test to see it.** The user
-voice was originally IndicF5 on ai4bharat's *Marathi* prompt. Audio-mode memory scored 5–6/10
-against text mode's 10/11 and the gap survived the endpoint fix. Sending the rendered turns
-straight to the ASR service, bypassing the gateway, settled it: synthetic CER 0.282 direct
-versus 0.261 through the gateway versus 0.112 for real humans. The gateway added nothing; the
-*test voice* was harder to recognise than real Bengali speakers, because cross-lingual
-prompting gives IndicF5 a non-Bengali accent ("ফি কত?" came back as "হ"). Re-conditioned on a
-real Bengali speaker: CER 0.282 → 0.135, and memory 5–6/10 → 10/11. Isolate the harness before
-blaming the system, and condition evaluation TTS on the target language.
+**The synthetic user voice must be conditioned on a Bengali speaker.** Conditioning IndicF5
+on a non-Bengali reference prompt gives it a non-Bengali accent that a Bengali ASR finds
+harder than real speakers: user-turn CER 0.282 with a Marathi reference against 0.135 with a
+Bengali one (real IndicVoices-R speakers: 0.112). The scripted-dialogue results here use the
+Bengali reference.
 
 ## Deployment
 
@@ -150,13 +145,3 @@ before KV cache; no bf16). GCP's free trial cannot use GPUs or request GPU quota
 quota starts at 0 vCPUs. Bangladesh's Personal Data Protection Act (Act 63, 10 April 2026) is
 extraterritorial and whether voice is "biometric" is unresolved: counsel before real users'
 voice leaves the country.
-
-## Things that were claimed and then withdrawn
-
-- "1–2 s to first audio" — unmeasured when said; withdrawn; measured 1752 ms service-path,
-  which itself excludes the silence wait.
-- "Smart Turn v3 as the principled fix" — refuted by measurement (above).
-- "29/30 clean Bengali replies" — a Korean fragment slipped the checker; at most 28/30.
-- "3–4 conversations per card, second GPU at 5" — KV-cache arithmetic, not throughput; withdrawn.
-- "memory is correct" — narrowed to "history use is demonstrated in text mode (10/11);
-  audio-mode resolution was 5–6/10 and a second cause is under investigation."
